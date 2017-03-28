@@ -1,5 +1,7 @@
+/* global fetch */
 import React from 'react'
 import { connect } from 'react-redux'
+import _ from 'lodash'
 
 import {
   getDecrementAction,
@@ -8,7 +10,22 @@ import {
 } from './actions'
 
 class App extends React.Component {
-  componentDidMount () {
+  constructor (props) {
+    super(props)
+    this.state = {
+      name: 'Someone'
+    }
+  }
+  handleSetName () {
+    // Random some number
+    const randomNumber = _.random(1, 50)
+    // Fetch data
+    fetch(`http://swapi.co/api/people/${randomNumber}`)
+      .then(response => response.json())
+      .then(data => {
+        this.props.setName(data.name)
+      })
+      .catch(err => console.log(err))
   }
   render () {
     return (
@@ -17,7 +34,7 @@ class App extends React.Component {
         <h2>{this.props.counter}</h2>
         <button onClick={this.props.doIncrement}>+</button>
         <button onClick={this.props.doDecrement}>-</button>
-        <button onClick={this.props.setName}>Set Name</button>
+        <button onClick={this.handleSetName.bind(this)}>Set Name</button>
       </div>
     )
   }
@@ -34,7 +51,7 @@ const mapDispatchToProps = (dispatch) => {
   return {
     doIncrement: () => dispatch(getIncrementAction()),
     doDecrement: () => dispatch(getDecrementAction()),
-    setName: () => dispatch(setNameAction('Someone'))
+    setName: (name) => dispatch(setNameAction(name))
   }
 }
 
