@@ -22,10 +22,22 @@ const mapStateToProps = (state) => {
   }
 }
 
+const getIncrementAction = () => {
+  return {
+    type: 'INCREMENT'
+  }
+}
+
+const getDecrementAction = () => {
+  return {
+    type: 'DECREMENT'
+  }
+}
+
 const mapDispatchToProps = (dispatch) => {
   return {
-    doIncrement: () => dispatch({type: 'INCREMENT'}),
-    doDecrement: () => dispatch({type: 'DECREMENT'})
+    doIncrement: () => dispatch(getIncrementAction()),
+    doDecrement: () => dispatch(getDecrementAction())
   }
 }
 
