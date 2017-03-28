@@ -12,7 +12,11 @@ const allReducers = combineReducers({
   counter: counterReducer
 })
 
-const store = createStore(allReducers)
+const initialState = {
+  counter: 10,
+  name: 'New Guy'
+}
+const store = createStore(allReducers, initialState)
 
 render(
   <Provider store={store}><App /></Provider>,
