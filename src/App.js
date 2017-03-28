@@ -14,21 +14,30 @@ const counter = (state = 0, action) => {
 
 const store = createStore(counter)
 
-store.subscribe(() => {
-  console.log(store.getState())
-})
-store.dispatch({
-  type: 'INCREMENT'
-})
-
-const App = (props) => {
-  return (
-    <div>
-      <h1>Counter</h1>
-      <button onClick={() => store.dispatch({type: 'INCREMENT'})}>+</button>
-      <button>-</button>
-    </div>
-  )
+class App extends React.Component {
+  constructor (props) {
+    super(props)
+    this.state = {
+      counter: store.getState()
+    }
+  }
+  componentDidMount () {
+    store.subscribe(() => {
+      this.setState({
+        counter: store.getState()
+      })
+    })
+  }
+  render () {
+    return (
+      <div>
+        <h1>Counter</h1>
+        <h2>{this.state.counter}</h2>
+        <button onClick={() => store.dispatch({type: 'INCREMENT'})}>+</button>
+        <button>-</button>
+      </div>
+    )
+  }
 }
 
 export default App
