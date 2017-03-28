@@ -1,43 +1,25 @@
 import React from 'react'
-import { createStore } from 'redux'
-
-const counter = (state = 0, action) => {
-  switch (action.type) {
-    case 'INCREMENT':
-      return state + 1
-    case 'DECREMENT':
-      return state - 1
-    default:
-      return state
-  }
-}
-
-const store = createStore(counter)
+import { connect } from 'react-redux'
 
 class App extends React.Component {
-  constructor (props) {
-    super(props)
-    this.state = {
-      counter: store.getState()
-    }
-  }
   componentDidMount () {
-    store.subscribe(() => {
-      this.setState({
-        counter: store.getState()
-      })
-    })
   }
   render () {
     return (
       <div>
         <h1>Counter</h1>
-        <h2>{this.state.counter}</h2>
-        <button onClick={() => store.dispatch({type: 'INCREMENT'})}>+</button>
+        <h2>{this.props.counter}</h2>
+        <button>+</button>
         <button>-</button>
       </div>
     )
   }
 }
 
-export default App
+const mapStateToProps = (state) => {
+  return {
+    counter: state
+  }
+}
+
+export default connect(mapStateToProps, null)(App)
