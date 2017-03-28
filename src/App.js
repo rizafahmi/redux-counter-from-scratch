@@ -1,7 +1,11 @@
 import React from 'react'
 import { connect } from 'react-redux'
 
-import { getDecrementAction, getIncrementAction } from './actions'
+import {
+  getDecrementAction,
+  getIncrementAction,
+  setNameAction
+} from './actions'
 
 class App extends React.Component {
   componentDidMount () {
@@ -9,10 +13,11 @@ class App extends React.Component {
   render () {
     return (
       <div>
-        <h1>Counter</h1>
+        <h1>Counter {this.props.name}</h1>
         <h2>{this.props.counter}</h2>
         <button onClick={this.props.doIncrement}>+</button>
         <button onClick={this.props.doDecrement}>-</button>
+        <button onClick={this.props.setName}>Set Name</button>
       </div>
     )
   }
@@ -20,14 +25,16 @@ class App extends React.Component {
 
 const mapStateToProps = (state) => {
   return {
-    counter: state
+    counter: state.counter,
+    name: state.name
   }
 }
 
 const mapDispatchToProps = (dispatch) => {
   return {
     doIncrement: () => dispatch(getIncrementAction()),
-    doDecrement: () => dispatch(getDecrementAction())
+    doDecrement: () => dispatch(getDecrementAction()),
+    setName: () => dispatch(setNameAction('Someone'))
   }
 }
 

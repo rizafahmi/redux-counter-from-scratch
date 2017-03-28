@@ -8,3 +8,10 @@ export const counterReducer = (state = 0, action) => {
       return state
   }
 }
+
+export const nameReducer = (state = '', action) => {
+  if (action.type === 'SET_NAME') {
+    return action.payload
+  }
+  return state
+}

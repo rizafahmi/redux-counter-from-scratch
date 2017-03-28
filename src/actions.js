@@ -9,3 +9,10 @@ export const getDecrementAction = () => {
     type: 'DECREMENT'
   }
 }
+
+export const setNameAction = (name) => {
+  return {
+    type: 'SET_NAME',
+    payload: name
+  }
+}
