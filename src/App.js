@@ -9,8 +9,8 @@ class App extends React.Component {
       <div>
         <h1>Counter</h1>
         <h2>{this.props.counter}</h2>
-        <button>+</button>
-        <button>-</button>
+        <button onClick={this.props.doIncrement}>+</button>
+        <button onClick={this.props.doDecrement}>-</button>
       </div>
     )
   }
@@ -22,4 +22,11 @@ const mapStateToProps = (state) => {
   }
 }
 
-export default connect(mapStateToProps, null)(App)
+const mapDispatchToProps = (dispatch) => {
+  return {
+    doIncrement: () => dispatch({type: 'INCREMENT'}),
+    doDecrement: () => dispatch({type: 'DECREMENT'})
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(App)
