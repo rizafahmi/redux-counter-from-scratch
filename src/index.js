@@ -6,17 +6,19 @@ import { Provider } from 'react-redux'
 import App from './App'
 import './index.css'
 import { counterReducer, nameReducer } from './reducers'
+import { loadState, saveState } from './localStorage'
 
 const allReducers = combineReducers({
   name: nameReducer,
   counter: counterReducer
 })
 
-const initialState = {
-  counter: 10,
-  name: 'New Guy'
-}
+const initialState = loadState()
 const store = createStore(allReducers, initialState)
+
+store.subscribe(() => {
+  saveState(store.getState())
+})
 
 render(
   <Provider store={store}><App /></Provider>,
