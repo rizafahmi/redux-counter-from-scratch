@@ -1,6 +1,8 @@
 import React from 'react'
 import { connect } from 'react-redux'
 
+import { getDecrementAction, getIncrementAction } from './actions'
+
 class App extends React.Component {
   componentDidMount () {
   }
@@ -19,18 +21,6 @@ class App extends React.Component {
 const mapStateToProps = (state) => {
   return {
     counter: state
-  }
-}
-
-const getIncrementAction = () => {
-  return {
-    type: 'INCREMENT'
-  }
-}
-
-const getDecrementAction = () => {
-  return {
-    type: 'DECREMENT'
   }
 }
 
