@@ -1,7 +1,8 @@
 import React from 'react'
 import { render } from 'react-dom'
-import { createStore, combineReducers } from 'redux'
+import { createStore, combineReducers, applyMiddleware } from 'redux'
 import { Provider } from 'react-redux'
+import logger from 'redux-logger'
 
 import App from './App'
 import './index.css'
@@ -14,7 +15,8 @@ const allReducers = combineReducers({
 })
 
 const initialState = loadState()
-const store = createStore(allReducers, initialState)
+console.log(logger)
+const store = createStore(allReducers, initialState, applyMiddleware(logger))
 
 store.subscribe(() => {
   saveState(store.getState())
